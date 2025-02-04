@@ -1,14 +1,14 @@
 const AWS = require("aws-sdk");
 const {
   Package,
-  PackageWithImages
+  PackageWithImages,
 } = require("../models/PackageDetailsSchema");
 
 // Configure AWS
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID, // Replace with your Access Key ID
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // Replace with your Secret Access Key
-  region: "us-east-1" // Replace with your bucket's region
+  region: "us-east-1", // Replace with your bucket's region
 });
 
 // Initialize S3 client
@@ -17,7 +17,7 @@ const bucketName = "smriti20-image-storage";
 
 async function listS3Images() {
   const params = {
-    Bucket: bucketName
+    Bucket: bucketName,
   };
 
   try {
@@ -64,7 +64,7 @@ async function linkImagesToMongoDB(_, res) {
 async function addPackageImages(packageId, imageUrls) {
   const newRecord = new PackageWithImages({
     package_id: packageId,
-    image_urls: imageUrls
+    image_urls: imageUrls,
   });
 
   await newRecord.save();
